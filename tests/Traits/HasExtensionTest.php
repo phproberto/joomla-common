@@ -37,6 +37,19 @@ class HasExtensionTest extends \TestCase
 	}
 
 	/**
+	 * Test getExtensionProperty method.
+	 *
+	 * @return  void
+	 */
+	public function testGetExtensionProperty()
+	{
+		$class = new ClassWithExtension;
+		$this->assertEquals(ClassWithExtension::defaultExtension()->name, $class->getExtensionProperty('name'));
+		$this->assertEquals(null, $class->getExtensionProperty('custom-property'));
+		$this->assertEquals('default-value', $class->getExtensionProperty('custom-property', 'default-value'));
+	}
+
+	/**
 	 * Test that loadExtension is only triggered once.
 	 *
 	 * @return  void

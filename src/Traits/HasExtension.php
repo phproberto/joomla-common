@@ -8,6 +8,8 @@
 
 namespace Phproberto\Joomla\Traits;
 
+use Joomla\Registry\Registry;
+
 defined('JPATH_PLATFORM') || die;
 
 /**
@@ -39,6 +41,21 @@ trait HasExtension
 		}
 
 		return clone $this->extension;
+	}
+
+	/**
+	 * Get an extension property.
+	 *
+	 * @param   string  $property  Name of the property
+	 * @param   mixed   $default   Default value
+	 *
+	 * @return  mixed
+	 */
+	public function getExtensionProperty($property, $default = null)
+	{
+		$extension = new Registry((array) $this->getExtension());
+
+		return $extension->get($property, $default);
 	}
 
 	/**
