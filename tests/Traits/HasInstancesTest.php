@@ -36,6 +36,26 @@ class HasInstancesTest extends \TestCase
 	}
 
 	/**
+	 * Test clearInstance method.
+	 *
+	 * @return  void
+	 */
+	public function testClearInstance()
+	{
+		$class = ClassWithInstances::getInstance(1337);
+		$class->setName('Sample name');
+		$this->assertEquals('Sample name', $class->getName());
+
+		$class2 = ClassWithInstances::getInstance(1337);
+		$this->assertEquals('Sample name', $class2->getName());
+
+		ClassWithInstances::clearInstance(1337);
+
+		$class3 = ClassWithInstances::getInstance(1337);
+		$this->assertNotEquals('Sample name', $class3->getName());
+	}
+
+	/**
 	 * Test getInstance method.
 	 *
 	 * @return  void
