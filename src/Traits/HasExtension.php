@@ -13,7 +13,7 @@ defined('JPATH_PLATFORM') || die;
 /**
  * Trait to for classes linked to a DB extension.
  *
- * @since  __DEPLOY_VERSION__
+ * @since  0.0.1
  */
 trait HasExtension
 {

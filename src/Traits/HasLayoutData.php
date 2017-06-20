@@ -13,7 +13,7 @@ defined('JPATH_PLATFORM') || die;
 /**
  * Classes that have layout data.
  *
- * @since  __DEPLOY_VERSION__
+ * @since  0.0.1
  */
 trait HasLayoutData
 {

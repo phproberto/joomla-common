@@ -13,7 +13,7 @@ defined('JPATH_PLATFORM') || die;
 /**
  * Modules that use JLayoutFile as renderer.
  *
- * @since  __DEPLOY_VERSION__
+ * @since  0.0.1
  */
 trait HasLayouts
 {
