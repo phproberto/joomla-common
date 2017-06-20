@@ -10,7 +10,6 @@ namespace Phproberto\Joomla\Component;
 
 use Joomla\Registry\Registry;
 use Phproberto\Joomla\Traits;
-use Phproberto\Joomla\Helper\ComponentHelper;
 
 defined('JPATH_PLATFORM') || die;
 
