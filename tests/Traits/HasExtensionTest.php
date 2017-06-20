@@ -1,0 +1,61 @@
+<?php
+/**
+ * Joomla! common library.
+ *
+ * @copyright  Copyright (C) 2017 Roberto Segura López, Inc. All rights reserved.
+ * @license    GNU/GPL 2, http://www.gnu.org/licenses/gpl-2.0.htm
+ */
+
+namespace Phproberto\Joomla\Tests\Traits;
+
+use Phproberto\Joomla\Tests\Traits\Stubs\ClassWithExtension;
+use Phproberto\Joomla\Tests\Traits\Stubs\DatabaseExtension;
+
+/**
+ * Tests for HasExtension trait.
+ *
+ * @since  __DEPLOY_VERSION__
+ */
+class HasExtensionTest extends \TestCase
+{
+	/**
+	 * Test getExtension method.
+	 *
+	 * @return  void
+	 */
+	public function testGetExtension()
+	{
+		$class = new ClassWithExtension;
+
+		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
+
+		$modified = $class->getExtension();
+		$modified->name = 'Modified name';
+
+		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
+		$this->assertNotEquals(DatabaseExtension::get(), $modified);
+	}
+
+	/**
+	 * Test that loadExtension is only triggered once.
+	 *
+	 * @return  void
+	 */
+	public function testExtensionIsCached()
+	{
+		$class = new ClassWithExtension;
+
+		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
+
+		$modifiedData = $class->getExtension();
+		$modifiedData->name = 'Another name';
+
+		$reflection = new \ReflectionClass($class);
+		$extension = $reflection->getProperty('extension');
+		$extension->setAccessible(true);
+		$extension->setValue($class, $modifiedData);
+
+		$this->assertEquals($modifiedData, $class->getExtension());
+		$this->assertEquals(DatabaseExtension::get(), $class->getExtension(true));
+	}
+}
