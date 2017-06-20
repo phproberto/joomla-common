@@ -69,6 +69,11 @@ class HasParamsTest extends \TestCase
 		$this->assertEquals('var-modified', $class->getParam('foo'));
 		$class->setParam('foo', null);
 		$this->assertEquals(null, $class->getParam('foo'));
+
+		$class2 = new ClassWithParams;
+		$class2->setParam('custom', 'value');
+		$this->assertEquals('var', $class2->getParam('foo'));
+		$this->assertEquals('value', $class2->getParam('custom'));
 	}
 
 	/**
