@@ -8,7 +8,7 @@
 
 namespace Phproberto\Joomla\Traits;
 
-defined('JPATH_PLATFORM') or die;
+defined('JPATH_PLATFORM') || die;
 
 /**
  * Classes using multiple singleton instances.
