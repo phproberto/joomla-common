@@ -26,6 +26,34 @@ class ClassWithExtension
 	 */
 	protected function loadExtension()
 	{
-		return DatabaseExtension::get();
+		return self::defaultExtension();
+	}
+
+	/**
+	 * Get default extension data.
+	 *
+	 * @return  \stdClass
+	 */
+	public static function defaultExtension()
+	{
+		return (object) array(
+			'extension_id'     => 1337,
+			'package_id'       => 0,
+			'name'             => 'lib_fake',
+			'type'             => 'library',
+			'element'          => 'fake',
+			'folder'           => '',
+			'client_id'        => 0,
+			'enabled'          => 1,
+			'access'           => 1,
+			'manifest_cache'   => '{"name": "lib_fake", "type": "library", "filename" : "fake"}',
+			'params'           => '{}',
+			'custom_data'      => '',
+			'system_datas'     => '',
+			'checked_out'      => 0,
+			'checked_out_time' => '0000-00-00 00:00:00',
+			'ordering'         => 0,
+			'state'            => 0
+		);
 	}
 }

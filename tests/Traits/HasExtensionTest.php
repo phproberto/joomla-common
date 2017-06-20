@@ -27,13 +27,13 @@ class HasExtensionTest extends \TestCase
 	{
 		$class = new ClassWithExtension;
 
-		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
+		$this->assertEquals(ClassWithExtension::defaultExtension(), $class->getExtension());
 
 		$modified = $class->getExtension();
 		$modified->name = 'Modified name';
 
-		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
-		$this->assertNotEquals(DatabaseExtension::get(), $modified);
+		$this->assertEquals(ClassWithExtension::defaultExtension(), $class->getExtension());
+		$this->assertNotEquals(ClassWithExtension::defaultExtension(), $modified);
 	}
 
 	/**
@@ -45,7 +45,7 @@ class HasExtensionTest extends \TestCase
 	{
 		$class = new ClassWithExtension;
 
-		$this->assertEquals(DatabaseExtension::get(), $class->getExtension());
+		$this->assertEquals(ClassWithExtension::defaultExtension(), $class->getExtension());
 
 		$modifiedData = $class->getExtension();
 		$modifiedData->name = 'Another name';
@@ -56,6 +56,6 @@ class HasExtensionTest extends \TestCase
 		$extension->setValue($class, $modifiedData);
 
 		$this->assertEquals($modifiedData, $class->getExtension());
-		$this->assertEquals(DatabaseExtension::get(), $class->getExtension(true));
+		$this->assertEquals(ClassWithExtension::defaultExtension(), $class->getExtension(true));
 	}
 }
