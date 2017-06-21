@@ -20,11 +20,11 @@ use Phproberto\Joomla\Component\Component as BaseComponent;
 class Component extends BaseComponent
 {
 	/**
-	 * Get the active component. Mainly for testing purposes.
+	 * Get the active component option. Mainly for testing purposes.
 	 *
 	 * @return  string
 	 */
-	protected static function getActiveComponent()
+	protected static function getActiveOption()
 	{
 		return 'com_content';
 	}

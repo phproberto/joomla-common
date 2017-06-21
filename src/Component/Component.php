@@ -83,17 +83,17 @@ class Component
 	 */
 	public static function getActive()
 	{
-		return static::getInstance(static::getActiveComponent());
+		return static::getInstance(static::getActiveOption());
 	}
 
 	/**
-	 * Get the active component. Isolated for testing purposes.
+	 * Get the active component option. Isolated for testing purposes.
 	 *
 	 * @return  string
 	 *
 	 * @codeCoverageIgnore
 	 */
-	protected static function getActiveComponent()
+	protected static function getActiveOption()
 	{
 		return \JApplicationHelper::getComponentName();
 	}
