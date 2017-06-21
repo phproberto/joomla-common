@@ -19,6 +19,7 @@ build:
         before:
             - composer install --prefer-dist --no-interaction --no-progress
             - git clone https://github.com/joomla/joomla-cms.git -b master /tmp/joomla-cms
+            - composer install -d /tmp/joomla-cms
         override:
             -
                 command: ./vendor/bin/phpunit --configuration ci/phpunit.ci.xml --coverage-clover ./clover.xml
