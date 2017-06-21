@@ -56,45 +56,6 @@ class HasParamsTest extends \TestCase
 	}
 
 	/**
-	 * Test saveParams. This is a test to guide the recommended approach to save params.
-	 *
-	 * @return  void
-	 */
-	public function testSaveParams()
-	{
-		$class = new ClassWithParams;
-		$this->assertEquals(ClassWithParams::defaultParams(), $class->getParams());
-
-		$reflection = new \ReflectionClass($class);
-		$params = $reflection->getProperty('params');
-		$params->setAccessible(true);
-
-		$modifiedParams = $params->getValue($class);
-		$modifiedParams->set('custom-param', 'my-value');
-
-		$class->saveParams();
-		$this->assertEquals($modifiedParams, $class->getParams());
-
-		$modifiedParams->set('another-one', 'another-value');
-		$this->assertNotEquals($modifiedParams, $class->getParams());
-		$class->saveParams($modifiedParams);
-		$this->assertEquals($modifiedParams, $class->getParams());
-	}
-
-	/**
-	 * Test that saving non-valid params throws an exception.
-	 *
-	 * @return  void
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testSaveParamsException()
-	{
-		$class = new ClassWithParams;
-		$class->saveParams(array('not' => 'valid'));
-	}
-
-	/**
 	 * Test setParam method.
 	 *
 	 * @return  void

@@ -66,11 +66,9 @@ trait HasParams
 	/**
 	 * Save parameters to database.
 	 *
-	 * @param   Registry  $params  Optional parameters. Null to use current ones.
-	 *
-	 * @return  Registry
+	 * @return  boolean
 	 */
-	abstract public function saveParams($params = null);
+	abstract public function saveParams();
 
 	/**
 	 * Set the value of a parameter.

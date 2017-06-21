@@ -55,21 +55,12 @@ class ClassWithParams
 	/**
 	 * Save parameters to database.
 	 *
-	 * @param   Registry  $params  Optional parameters. Null to use current ones.
+	 * @return  boolean
 	 *
-	 * @return  Registry
+	 * @codeCoverageIgnore
 	 */
-	public function saveParams($params = null)
+	public function saveParams()
 	{
-		$params = null !== $params ? $params : $this->getParams();
-
-		if (!$params instanceof \Joomla\Registry\Registry)
-		{
-			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . gettype($params) . ' received.');
-		}
-
-		$this->setParams($params);
-
 		return true;
 	}
 }
