@@ -20,21 +20,6 @@ use Phproberto\Joomla\Component\Component as BaseComponent;
 class Component extends BaseComponent
 {
 	/**
-	 * Get the fake database extension.
-	 *
-	 * @return  \stdClass
-	 */
-	public static function databaseExtension()
-	{
-		return (object) array(
-			'element' => 'com_phproberto',
-			'name'    => 'com_phproberto',
-			'params'  => '{"foo":"var"}',
-			'type'    => 'component'
-		);
-	}
-
-	/**
 	 * Get the active component. Mainly for testing purposes.
 	 *
 	 * @return  string
@@ -42,15 +27,5 @@ class Component extends BaseComponent
 	protected static function getActiveComponent()
 	{
 		return 'com_content';
-	}
-
-	/**
-	 * Load extension from DB.
-	 *
-	 * @return  \stdClass
-	 */
-	protected function loadExtension()
-	{
-		return self::databaseExtension();
 	}
 }
