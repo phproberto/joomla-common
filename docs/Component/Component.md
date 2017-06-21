@@ -7,12 +7,8 @@ Component class is intended to ease the management of component related stuff.
 * Namespace
 * Methods
     * clearInstance($option)
-        * Parameters
-        * Returns
-        * Examples
+    * getFreshInstance($option = null)
     * getInstance($option = null)
-        * Parameters
-        *
 
 ## Methods
 
@@ -77,4 +73,30 @@ $foo = Component::getInstance('com_content')
 // This won't return `var` because cached instance was cleared
 $foo = Component::getFreshInstance('com_content')
     ->getParam('foo');
+```
+
+### getInstance($option)
+
+> Retrieve an instance of specific component.
+
+It will return a statically cached instance if component has been already loaded or a fresh if not.
+
+**Parameters:**
+
+* *$option (required)*: Component option. Example: com_content.
+
+**Returns:**
+
+`Phproberto\Joomla\Component\Component`;
+
+**Examples:**
+
+```php
+// Retrieve com_content component
+$component = Component::getInstance('com_content');
+
+if ($component->getParam('show_title', '1') === '1')
+{
+    // Do something
+}
 ```

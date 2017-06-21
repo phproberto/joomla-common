@@ -47,6 +47,8 @@ class Component
 	 * Constructor
 	 *
 	 * @param   string  $option  Component option
+	 *
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __construct($option)
 	{
@@ -73,7 +75,19 @@ class Component
 	}
 
 	/**
-	 * Get the active component. Mainly for testing purposes.
+	 * Get the active component.
+	 *
+	 * @return  $this
+	 *
+	 * @throws  \InvalidArgumentException
+	 */
+	public static function getActive()
+	{
+		return static::getInstance(static::getActiveComponent());
+	}
+
+	/**
+	 * Get the active component. Isolated for testing purposes.
 	 *
 	 * @return  string
 	 *
@@ -91,10 +105,9 @@ class Component
 	 *
 	 * @return  $this
 	 */
-	public static function getInstance($option = null)
+	public static function getInstance($option)
 	{
 		$option = trim(strtolower($option));
-		$option = $option ?: static::getActiveComponent();
 
 		$class = get_called_class();
 

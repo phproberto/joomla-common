@@ -76,6 +76,17 @@ class ComponentTest extends \TestCaseDatabase
 	}
 
 	/**
+	 * Test getActive method.
+	 *
+	 * @return  void
+	 */
+	public function testGetActive()
+	{
+		$component = Component::getActive();
+		$this->assertEquals('Content', $component->getPrefix());
+	}
+
+	/**
 	 * Test getExtension method.
 	 *
 	 * @return  void
@@ -124,9 +135,6 @@ class ComponentTest extends \TestCaseDatabase
 	 */
 	public function testGetInstance()
 	{
-		$component = Component::getInstance();
-		$this->assertEquals('Content', $component->getPrefix());
-
 		$component = Component::getInstance('com_content');
 		$this->assertEquals('Content', $component->getPrefix());
 
@@ -158,8 +166,8 @@ class ComponentTest extends \TestCaseDatabase
 		$component = Component::getInstance('com_banners');
 		$this->assertEquals('Banners', $component->getPrefix());
 
-		$component = Component::getInstance();
-		$this->assertEquals('Content', $component->getPrefix());
+		$component = Component::getInstance('com_ComPlex_Option');
+		$this->assertEquals('Complex_Option', $component->getPrefix());
 	}
 
 	/**
