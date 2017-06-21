@@ -7,6 +7,7 @@ Component class is intended to ease the management of component related stuff.
 * Namespace
 * Methods
     * clearInstance($option)
+    * getActive()
     * getFreshInstance($option = null)
     * getInstance($option = null)
 
@@ -40,9 +41,39 @@ $foo = Component::getInstance('com_content')
 // This will clear the cached instance
 Component::clearInstance('com_content');
 
-// This won't return `var` because cached instance was cleared
+// This will return `NULL` because cached instance was cleared
 $foo = Component::getInstance('com_content')
     ->getParam('foo');
+```
+
+### getActive()
+
+> Try to load active component.
+
+This will retrieve the active component based on url option. 
+
+**Parameters:**
+
+None
+
+**Returns:**
+
+`Phproberto\Joomla\Component\Component`;
+
+**Examples:**
+
+```php
+// Load active component parameters
+try
+{
+    $component = Component::getActive();
+}
+catch (\InvalidArgumentException $e)
+{
+    $component = null;
+}
+
+return $component ? $component->getParams() : new Registry;
 ```
 
 ### getFreshInstance($option)
@@ -70,7 +101,7 @@ Component::getInstance('com_content')
 $foo = Component::getInstance('com_content')
     ->getParam('foo');
 
-// This won't return `var` because cached instance was cleared
+// This will return `NULL` because cached instance was cleared
 $foo = Component::getFreshInstance('com_content')
     ->getParam('foo');
 ```
