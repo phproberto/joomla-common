@@ -4,16 +4,17 @@
 
 Component class is intended to ease the management of component related stuff.  
 
-* Namespace
-* Methods
-    * clearInstance($option)
-    * getActive()
-    * getFreshInstance($option = null)
-    * getInstance($option = null)
+Things like retrieve and change parameters made easy.
 
-## Methods
+* [Methods](#methods)
+    * [clearInstance($option)](#clearInstance)
+    * [getActive()](#getActive)
+    * [getFreshInstance($option)](#getFreshInstance)
+    * [getInstance($option)](#getInstance)
 
-### clearInstance($option)
+## Methods<a id="methods"></a>
+
+### clearInstance($option) <a id="clearInstance"></a>
 
 > Clears a cached instance from the static cache. 
 
@@ -46,7 +47,7 @@ $foo = Component::getInstance('com_content')
     ->getParam('foo');
 ```
 
-### getActive()
+### getActive() <a id="getActive"></a>
 
 > Try to load active component.
 
@@ -76,7 +77,7 @@ catch (\InvalidArgumentException $e)
 return $component ? $component->getParams() : new Registry;
 ```
 
-### getFreshInstance($option)
+### getFreshInstance($option) <a id="getFreshInstance"></a>
 
 > Retrieve a non-statically-cached instance.
 
@@ -106,7 +107,7 @@ $foo = Component::getFreshInstance('com_content')
     ->getParam('foo');
 ```
 
-### getInstance($option)
+### getInstance($option)<a id="getInstance"></a>
 
 > Retrieve an instance of specific component.
 
