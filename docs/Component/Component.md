@@ -1,4 +1,4 @@
-# `Component` class
+# Component class
 
 > `Phproberto\Joomla\Component\Component`
 
@@ -33,35 +33,20 @@ By default components are statically cached to avoid that their information is r
 **Examples:**
 
 ```php
-// Initial non-cached instance
-$component = Component::getInstance('com_content');
-
-// This will cause a DB query to retrieve params
-$params = $component->getParams();
-
-// This will set a param for in our loaded instance
-$component->setParam('foo', 'var');
-
-// This will return a statically-cached instance
-$component2 = Component::getInstance('com_content');
-
-// This won't cause an additional DB query
-$params2 = $component2->getParams();
+// This will store a param in the statically cached instance
+Component::getInstance('com_content')
+    ->setParam('foo', 'var');
 
 // This will return `var` because instance is cached
-$foo = $component2->getParam('foo');
+$foo = Component::getInstance('com_content')
+    ->getParam('foo');
 
-// This clears this cached instance from static cache
+// This will clear the cached instance
 Component::clearInstance('com_content');
 
-// This will return a non-cached instance
-$component3 = Component::getInstance('com_content');
-
-// This will reload params from DB
-$params3 = $component3->getParams();
-
-// This won't return `var` because cached instance was removed
-$foo = $component3->getParam('foo');
+// This won't return `var` because cached instance was cleared
+$foo = Component::getInstance('com_content')
+    ->getParam('foo');
 ```
 
 ### getFreshInstance($option)
@@ -81,30 +66,15 @@ By default components are statically cached to avoid that their information is r
 **Examples:**
 
 ```php
-// Initial non-cached instance
-$component = Component::getInstance('com_content');
-
-// This will cause a DB query to retrieve params
-$params = $component->getParams();
-
-// This will set a param for in our loaded instance
-$component->setParam('foo', 'var');
-
-// This will return a statically-cached instance
-$component2 = Component::getInstance('com_content');
-
-// This won't cause an additional DB query
-$params2 = $component2->getParams();
+// This will store a param in the statically cached instance
+Component::getInstance('com_content')
+    ->setParam('foo', 'var');
 
 // This will return `var` because instance is cached
-$foo = $component2->getParam('foo');
+$foo = Component::getInstance('com_content')
+    ->getParam('foo');
 
-// This will return a non-cached instance
-$component3 = Component::getFreshInstance('com_content');
-
-// This will reload params from DB
-$params3 = $component3->getParams();
-
-// This won't return `var` because cached instance was removed
-$foo = $component3->getParam('foo');
+// This won't return `var` because cached instance was cleared
+$foo = Component::getFreshInstance('com_content')
+    ->getParam('foo');
 ```
