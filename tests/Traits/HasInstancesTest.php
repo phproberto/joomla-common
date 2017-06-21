@@ -56,6 +56,21 @@ class HasInstancesTest extends \TestCase
 	}
 
 	/**
+	 * Test getFreshInstance method.
+	 *
+	 * @return  void
+	 */
+	public function testGetFreshInstance()
+	{
+		$class = ClassWithInstances::getInstance(1337);
+		$class->setName('Sample name');
+		$this->assertEquals('Sample name', $class->getName());
+
+		$class3 = ClassWithInstances::getFreshInstance(1337);
+		$this->assertNotEquals('Sample name', $class3->getName());
+	}
+
+	/**
 	 * Test getInstance method.
 	 *
 	 * @return  void

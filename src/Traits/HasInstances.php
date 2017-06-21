@@ -39,9 +39,23 @@ trait HasInstances
 	}
 
 	/**
+	 * Ensure that we retrieve a non-statically-cached instance.
+	 *
+	 * @param   integer  $id   Identifier of the instance
+	 *
+	 * @return  $this
+	 */
+	public static function getFreshInstance($id)
+	{
+		static::clearInstance($id);
+
+		return static::getInstance($id);
+	}
+
+	/**
 	 * Create and return a cached instance
 	 *
-	 * @param   integer  $id  Identifier of the active instance
+	 * @param   integer  $id  Identifier of the instance
 	 *
 	 * @return  $this
 	 */
