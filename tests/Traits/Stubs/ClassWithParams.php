@@ -21,6 +21,13 @@ class ClassWithParams
 	use HasParams;
 
 	/**
+	 * Parameters saved to the database.
+	 *
+	 * @var  Registry
+	 */
+	public $savedParams;
+
+	/**
 	 * Get the default layout data.
 	 *
 	 * @return  array
@@ -43,5 +50,26 @@ class ClassWithParams
 	protected function loadParams()
 	{
 		return self::defaultParams();
+	}
+
+	/**
+	 * Save parameters to database.
+	 *
+	 * @param   Registry  $params  Optional parameters. Null to use current ones.
+	 *
+	 * @return  Registry
+	 */
+	public function saveParams($params = null)
+	{
+		$params = null !== $params ? $params : $this->getParams();
+
+		if (!$params instanceof \Joomla\Registry\Registry)
+		{
+			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . get_class($params) . ' received.');
+		}
+
+		$this->setParams($params);
+
+		return true;
 	}
 }

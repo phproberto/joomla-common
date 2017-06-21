@@ -186,4 +186,35 @@ class Component
 	{
 		return new Registry($this->getExtensionProperty('params', array()));
 	}
+
+	/**
+	 * Save parameters to database.
+	 *
+	 * @param   Registry  $params  Optional parameters. Null to use current ones.
+	 *
+	 * @return  Registry
+	 */
+	public function saveParams($params = null)
+	{
+		$params = null !== $params ? $params : $this->getParams();
+
+		if (!$params instanceof \Joomla\Registry\Registry)
+		{
+			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . get_class($params) . ' received.');
+		}
+
+		$db = \JFactory::getDbo();
+
+		$query = $db->getQuery(true)
+			->update('#__extensions')
+			->set('params = ' . $db->q($params->toString()))
+			->where('type = ' . $db->quote('component'))
+			->where('element = ' . $db->q($this->option));
+
+		$db->setQuery($query);
+
+		$this->setParams($params);
+
+		return $db->execute() ? true : false;
+	}
 }

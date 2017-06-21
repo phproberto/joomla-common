@@ -64,6 +64,15 @@ trait HasParams
 	abstract protected function loadParams();
 
 	/**
+	 * Save parameters to database.
+	 *
+	 * @param   Registry  $params  Optional parameters. Null to use current ones.
+	 *
+	 * @return  Registry
+	 */
+	abstract public function saveParams($params = null);
+
+	/**
 	 * Set the value of a parameter.
 	 *
 	 * @param   string  $name   Parameter name
