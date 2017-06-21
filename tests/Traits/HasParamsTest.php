@@ -82,6 +82,19 @@ class HasParamsTest extends \TestCase
 	}
 
 	/**
+	 * Test that saving non-valid params throws an exception.
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSaveParamsException()
+	{
+		$class = new ClassWithParams;
+		$class->saveParams(array('not' => 'valid'));
+	}
+
+	/**
 	 * Test setParam method.
 	 *
 	 * @return  void

@@ -65,7 +65,7 @@ class ClassWithParams
 
 		if (!$params instanceof \Joomla\Registry\Registry)
 		{
-			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . get_class($params) . ' received.');
+			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . gettype($params) . ' received.');
 		}
 
 		$this->setParams($params);
