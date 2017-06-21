@@ -19,6 +19,40 @@ use Phproberto\Joomla\Tests\Component\Stubs\Component;
 class ComponentTest extends \TestCaseDatabase
 {
 	/**
+	 * Value of com_content extension_id on database.
+	 *
+	 * @const
+	 */
+	const COM_CONTENT_EXTENSION_ID = 22;
+
+	/**
+	 * Gets the data set to be loaded into the database during setup
+	 *
+	 * @return  PHPUnit_Extensions_Database_DataSet_CsvDataSet
+	 *
+	 * @since   3.5
+	 */
+	protected function getDataSet()
+	{
+		$dataSet = new \PHPUnit_Extensions_Database_DataSet_CsvDataSet(',', "'", '\\');
+		$dataSet->addTable('jos_extensions', JPATH_TEST_DATABASE . '/jos_extensions.csv');
+
+		return $dataSet;
+	}
+
+	/**
+	 * Test constructor.
+	 *
+	 * @expectedException \InvalidArgumentException
+	 *
+	 * @return  void
+	 */
+	public function testInvalidOptionInConstructor()
+	{
+		$component = new Component('  ');
+	}
+
+	/**
 	 * Test the cached
 	 *
 	 * @return  void
@@ -49,17 +83,17 @@ class ComponentTest extends \TestCaseDatabase
 	public function testGetExtension()
 	{
 		$component = Component::getInstance('com_content');
-		$this->assertEquals(Component::databaseExtension(), $component->getExtension());
+		$this->assertEquals(self::COM_CONTENT_EXTENSION_ID, $component->getExtension()->extension_id);
 
 		$reflection = new \ReflectionClass($component);
 		$extension = $reflection->getProperty('extension');
 		$extension->setAccessible(true);
 
-		$customExtension = new Registry(array('foo' => 'var', 'var' => 'foo'));
+		$customExtension = (object) array('extension_id' => '33', 'var' => 'foo');
 
 		$extension->setValue($component, $customExtension);
-		$this->assertEquals($customExtension, $component->getExtension());
-		$this->assertEquals(Component::databaseExtension(), $component->getExtension(true));
+		$this->assertEquals(33, $component->getExtension()->extension_id);
+		$this->assertEquals(self::COM_CONTENT_EXTENSION_ID, $component->getExtension(true)->extension_id);
 	}
 
 	/**
@@ -70,8 +104,8 @@ class ComponentTest extends \TestCaseDatabase
 	public function testGetParams()
 	{
 		$component = Component::getInstance('com_content');
-		$defaultParams = new Registry(Component::databaseExtension()->params);
-		$this->assertEquals($defaultParams, $component->getParams());
+		$defaultParams = $component->getParams();
+		$this->assertNotEquals(0, count($defaultParams->toArray()));
 
 		$reflection = new \ReflectionClass($component);
 		$params = $reflection->getProperty('params');
@@ -90,6 +124,9 @@ class ComponentTest extends \TestCaseDatabase
 	 */
 	public function testGetInstance()
 	{
+		$component = Component::getInstance();
+		$this->assertEquals('Content', $component->getPrefix());
+
 		$component = Component::getInstance('com_content');
 		$this->assertEquals('Content', $component->getPrefix());
 
@@ -139,5 +176,58 @@ class ComponentTest extends \TestCaseDatabase
 		$component = Component::getInstance('com_menus');
 		$table = $component->getTable('Menu');
 		$this->assertEquals('MenusTableMenu', get_class($table));
+	}
+
+	/**
+	 * Test getTable method.
+	 *
+	 * @expectedException \InvalidArgumentException
+	 *
+	 * @return  void
+	 */
+	public function testGetTableThrowsException()
+	{
+		$component = Component::getInstance('com_categories');
+		$table = $component->getTable('Inexistent');
+	}
+
+	/**
+	 * Test saveParams method.
+	 *
+	 * @return  void
+	 */
+	public function testSaveParams()
+	{
+		$component = Component::getInstance('com_content');
+		$defaultParams = $component->getParams();
+		$this->assertNotEquals(0, count($defaultParams->toArray()));
+
+		$reflection = new \ReflectionClass($component);
+		$params = $reflection->getProperty('params');
+		$params->setAccessible(true);
+
+		$modifiedParams = $params->getValue($component);
+		$modifiedParams->set('custom-param', 'my-value');
+
+		$component->saveParams();
+		$this->assertEquals($modifiedParams, $component->getParams());
+
+		$modifiedParams->set('another-one', 'another-value');
+		$this->assertNotEquals($modifiedParams, $component->getParams());
+		$component->saveParams($modifiedParams);
+		$this->assertEquals($modifiedParams, $component->getParams());
+	}
+
+	/**
+	 * Test that saving non-valid params throws an exception.
+	 *
+	 * @return  void
+	 *
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSaveParamsException()
+	{
+		$component = Component::getInstance('com_content');
+		$component->saveParams(array('not' => 'valid'));
 	}
 }

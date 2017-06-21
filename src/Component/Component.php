@@ -76,6 +76,8 @@ class Component
 	 * Get the active component. Mainly for testing purposes.
 	 *
 	 * @return  string
+	 *
+	 * @codeCoverageIgnore
 	 */
 	protected static function getActiveComponent()
 	{
@@ -200,7 +202,7 @@ class Component
 
 		if (!$params instanceof \Joomla\Registry\Registry)
 		{
-			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . get_class($params) . ' received.');
+			throw new \InvalidArgumentException(__CLASS__ . '::' . __METHOD__ . ' requires a Registry instance. ' . gettype($params) . ' received.');
 		}
 
 		$db = \JFactory::getDbo();
