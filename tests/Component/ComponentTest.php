@@ -8,6 +8,7 @@
 
 namespace Phproberto\Joomla\Tests\Component;
 
+use Joomla\Registry\Registry;
 use Phproberto\Joomla\Tests\Component\Stubs\Component;
 
 /**
@@ -38,6 +39,48 @@ class ComponentTest extends \TestCaseDatabase
 
 		$component2 = Component::getInstance('com_content');
 		$this->assertEquals('Content', $component2->getPrefix());
+	}
+
+	/**
+	 * Test getExtension method.
+	 *
+	 * @return  void
+	 */
+	public function testGetExtension()
+	{
+		$component = Component::getInstance('com_content');
+		$this->assertEquals(Component::databaseExtension(), $component->getExtension());
+
+		$reflection = new \ReflectionClass($component);
+		$extension = $reflection->getProperty('extension');
+		$extension->setAccessible(true);
+
+		$customExtension = new Registry(array('foo' => 'var', 'var' => 'foo'));
+
+		$extension->setValue($component, $customExtension);
+		$this->assertEquals($customExtension, $component->getExtension());
+		$this->assertEquals(Component::databaseExtension(), $component->getExtension(true));
+	}
+
+	/**
+	 * Test getParams method.
+	 *
+	 * @return  void
+	 */
+	public function testGetParams()
+	{
+		$component = Component::getInstance('com_content');
+		$defaultParams = new Registry(Component::databaseExtension()->params);
+		$this->assertEquals($defaultParams, $component->getParams());
+
+		$reflection = new \ReflectionClass($component);
+		$params = $reflection->getProperty('params');
+		$params->setAccessible(true);
+
+		$customParams = new Registry(array('foo' => 'var', 'var' => 'foo'));
+		$params->setValue($component, $customParams);
+		$this->assertEquals($customParams, $component->getParams());
+		$this->assertEquals($defaultParams, $component->getParams(true));
 	}
 
 	/**
