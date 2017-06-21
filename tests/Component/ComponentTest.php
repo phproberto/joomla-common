@@ -15,7 +15,7 @@ use Phproberto\Joomla\Tests\Component\Stubs\Component;
  *
  * @since  __DEPLOY_VERSION__
  */
-class ComponentTest extends \TestCase
+class ComponentTest extends \TestCaseDatabase
 {
 	/**
 	 * Test the cached
@@ -89,12 +89,12 @@ class ComponentTest extends \TestCase
 	 */
 	public function testGetTable()
 	{
-		$component = Component::getInstance('com_content');
-		$table = $component->getTable('Featured');
-		$this->assertEquals('ContentTableFeatured', get_class($table));
+		$component = Component::getInstance('com_categories');
+		$table = $component->getTable('Category');
+		$this->assertEquals('CategoriesTableCategory', get_class($table));
 
-		$component = Component::getInstance('com_users');
-		$table = $component->getTable('Note');
-		$this->assertEquals('UsersTableNote', get_class($table));
+		$component = Component::getInstance('com_menus');
+		$table = $component->getTable('Menu');
+		$this->assertEquals('MenusTableMenu', get_class($table));
 	}
 }
