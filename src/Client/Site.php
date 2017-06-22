@@ -15,7 +15,7 @@ defined('_JEXEC') || die;
  *
  * @since  __DEPLOY_VERSION__
  */
-final class Site extends BaseClient
+final class Site extends BaseClient implements ClientInterface
 {
 	/**
 	 * Client identifier.

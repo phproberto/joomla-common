@@ -15,7 +15,7 @@ defined('_JEXEC') || die;
  *
  * @since  __DEPLOY_VERSION__
  */
-abstract class BaseClient implements ClientInterface
+abstract class BaseClient
 {
 	/**
 	 * Client identifier.
