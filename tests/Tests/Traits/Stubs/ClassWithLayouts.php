@@ -41,8 +41,8 @@ class ClassWithLayouts
 	protected function getLayoutPaths()
 	{
 		return array(
-			__DIR__ . '/templates/sample/html/layouts',
-			__DIR__ . '/layouts'
+			JPATH_TESTS_PHPROBERTO . '/files/templates/sample/html/layouts',
+			JPATH_TESTS_PHPROBERTO . '/files/layouts'
 		);
 	}
 }

@@ -19,7 +19,7 @@
   },
   "autoload-dev": {
       "psr-4": {
-          "Phproberto\\Joomla\\Tests\\": "tests/"
+          "Phproberto\\Joomla\\": "tests/"
       }
   },
   "require-dev": {
