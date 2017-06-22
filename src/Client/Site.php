@@ -15,7 +15,7 @@ defined('_JEXEC') || die;
  *
  * @since  __DEPLOY_VERSION__
  */
-final class Site extends Base
+final class Site extends BaseClient
 {
 	/**
 	 * Client identifier.

@@ -18,20 +18,6 @@ defined('_JEXEC') || die;
 interface ClientInterface
 {
 	/**
-	 * Site client identifier.
-	 *
-	 * @const
-	 */
-	const ID_SITE = 0;
-
-	/**
-	 * Administrator client identifier.
-	 *
-	 * @const
-	 */
-	const ID_ADMIN = 1;
-
-	/**
 	 * Get the base folder of this client.
 	 *
 	 * @return  string

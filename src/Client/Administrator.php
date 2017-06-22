@@ -15,7 +15,7 @@ defined('_JEXEC') || die;
  *
  * @since  __DEPLOY_VERSION__
  */
-final class Administrator extends Base
+final class Administrator extends BaseClient
 {
 	/**
 	 * Client identifier.

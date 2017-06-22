@@ -8,8 +8,6 @@
 
 namespace Phproberto\Joomla\Client;
 
-use Phproberto\Joomla\Client\Administrator;
-
 defined('_JEXEC') || die;
 
 /**
@@ -17,7 +15,7 @@ defined('_JEXEC') || die;
  *
  * @since  __DEPLOY_VERSION__
  */
-abstract class Base implements ClientInterface
+abstract class BaseClient implements ClientInterface
 {
 	/**
 	 * Client identifier.
