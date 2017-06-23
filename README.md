@@ -1,4 +1,4 @@
-# Common Joomla! libraries by Phproberto  
+# Joomla! extension development libraries.  
 
 > 100% unit tested libraries to develop Joomla! extensions. 
 
