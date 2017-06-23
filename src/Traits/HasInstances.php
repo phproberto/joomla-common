@@ -31,11 +31,19 @@ trait HasInstances
 	 *
 	 * @return  void
 	 */
-	public static function clearInstance($id)
+	public static function clear($id)
 	{
-		$class = get_called_class();
+		unset(static::$instances[get_called_class()][$id]);
+	}
 
-		unset(static::$instances[$class][$id]);
+	/**
+	 * Clear all instances from cache
+	 *
+	 * @return  void
+	 */
+	public static function clearAll()
+	{
+		unset(static::$instances[get_called_class()]);
 	}
 
 	/**
@@ -45,11 +53,11 @@ trait HasInstances
 	 *
 	 * @return  $this
 	 */
-	public static function getFreshInstance($id)
+	public static function getFresh($id)
 	{
-		static::clearInstance($id);
+		static::clear($id);
 
-		return static::getInstance($id);
+		return static::get($id);
 	}
 
 	/**
@@ -59,7 +67,7 @@ trait HasInstances
 	 *
 	 * @return  $this
 	 */
-	public static function getInstance($id)
+	public static function get($id)
 	{
 		$class = get_called_class();
 
