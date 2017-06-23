@@ -1,6 +1,6 @@
 # Common Joomla! libraries by Phproberto  
 
-> 100% unit tested libraries commonly required to develop Joomla! extensions. 
+> 100% unit tested libraries to develop Joomla! extensions. 
 
 [![Build Status](https://travis-ci.org/phproberto/joomla-common.svg?branch=master)](https://travis-ci.org/phproberto/joomla-common)
 [![Code Coverage](https://scrutinizer-ci.com/g/phproberto/joomla-common/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/phproberto/joomla-common/?branch=master)
