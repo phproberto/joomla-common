@@ -8,6 +8,38 @@
 
 **STILL NOT READY FOR PRODUCTION**
 
+## Quickstart
+
+Sample usage:
+
+```php
+use Phproberto\Joomla\Client\Client;
+
+// Get the active client
+$client = Client::getActive();
+
+// Check if we are in backend
+if ($client->isAdmin())
+{
+	// Do something
+}
+
+// Check if we are in frontend
+if ($client->isSite())
+{
+	// Do something
+}
+
+// Retrieve client base folder
+echo 'Base application folder is ' . $client->getFolder();
+
+// Retrieve frontend client
+$site = Client::site();
+
+// Retrieve backend client
+$admin = Client::admin();
+```
+
 ## Requirements
 
 * **PHP 5.4+** Due to the use of traits
