@@ -42,16 +42,16 @@ class HasInstancesTest extends \TestCase
 	 */
 	public function testClearInstance()
 	{
-		$class = ClassWithInstances::get(1337);
+		$class = ClassWithInstances::instance(1337);
 		$class->setName('Sample name');
 		$this->assertEquals('Sample name', $class->getName());
 
-		$class2 = ClassWithInstances::get(1337);
+		$class2 = ClassWithInstances::instance(1337);
 		$this->assertEquals('Sample name', $class2->getName());
 
-		ClassWithInstances::clear(1337);
+		ClassWithInstances::clearInstance(1337);
 
-		$class3 = ClassWithInstances::get(1337);
+		$class3 = ClassWithInstances::instance(1337);
 		$this->assertNotEquals('Sample name', $class3->getName());
 	}
 
@@ -60,13 +60,13 @@ class HasInstancesTest extends \TestCase
 	 *
 	 * @return  void
 	 */
-	public function testGetFreshInstance()
+	public function testFreshInstance()
 	{
-		$class = ClassWithInstances::get(1337);
+		$class = ClassWithInstances::instance(1337);
 		$class->setName('Sample name');
 		$this->assertEquals('Sample name', $class->getName());
 
-		$class3 = ClassWithInstances::getFresh(1337);
+		$class3 = ClassWithInstances::freshInstance(1337);
 		$this->assertNotEquals('Sample name', $class3->getName());
 	}
 
@@ -77,11 +77,11 @@ class HasInstancesTest extends \TestCase
 	 */
 	public function testGetInstance()
 	{
-		$class = ClassWithInstances::get(1337);
+		$class = ClassWithInstances::instance(1337);
 		$class->setName('Sample name');
 		$this->assertEquals('Sample name', $class->getName());
 
-		$class2 = ClassWithInstances::get(1337);
+		$class2 = ClassWithInstances::instance(1337);
 		$this->assertEquals('Sample name', $class2->getName());
 	}
 
@@ -92,14 +92,14 @@ class HasInstancesTest extends \TestCase
 	 */
 	public function testNoCollisionsBetweenClasses()
 	{
-		$class = ClassWithInstances::get(1337);
+		$class = ClassWithInstances::instance(1337);
 		$class->setName('Sample name');
 		$this->assertEquals('Sample name', $class->getName());
 
-		$class2 = AnotherClassWithInstances::get(1337);
+		$class2 = AnotherClassWithInstances::instance(1337);
 		$this->assertNotEquals('Sample name', $class2->getName());
 
-		$class3 = ClassWithInstances::get(1337);
+		$class3 = ClassWithInstances::instance(1337);
 		$this->assertEquals('Sample name', $class3->getName());
 	}
 }
