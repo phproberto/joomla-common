@@ -36,6 +36,33 @@ class HasInstancesTest extends \TestCase
 	}
 
 	/**
+	 * clearAllInstances clears all the instances.
+	 *
+	 * @return  void
+	 */
+	public function testClearAllInstancesClearsAllTheInstances()
+	{
+		$reflection = new \ReflectionClass(ClassWithInstances::class);
+		$instancesProperty = $reflection->getProperty('instances');
+		$instancesProperty->setAccessible(true);
+
+		$instances = [
+			ClassWithInstances::class => [
+				1337 => new ClassWithInstances(1337),
+				1338 => new ClassWithInstances(1338)
+			]
+		];
+
+		$instancesProperty->setValue(ClassWithInstances::class, $instances);
+
+		$this->assertEquals($instances, $instancesProperty->getValue(ClassWithInstances::class));
+
+		ClassWithInstances::clearAllInstances();
+
+		$this->assertEquals([], $instancesProperty->getValue(ClassWithInstances::class));
+	}
+
+	/**
 	 * Test clearInstance method.
 	 *
 	 * @return  void
