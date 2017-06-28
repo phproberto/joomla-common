@@ -20,11 +20,11 @@ class ClassWithObject
 	use HasObject;
 
 	/**
-	 * Load info from database.
+	 * Load object data.
 	 *
 	 * @return  array
 	 */
-	protected function loadData()
+	protected function loadObjectData()
 	{
 		return [];
 	}

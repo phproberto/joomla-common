@@ -22,7 +22,7 @@ trait HasObject
 	/**
 	 * Associated object.
 	 *
-	 * @var  Entity
+	 * @var  \Phproberto\Joomla\Object\Object
 	 */
 	protected $object;
 
@@ -107,7 +107,7 @@ trait HasObject
 	 */
 	public function loadObject()
 	{
-		$this->object = new Object($this->loadData());
+		$this->object = new Object($this->loadObjectData());
 
 		return $this;
 	}
@@ -117,7 +117,7 @@ trait HasObject
 	 *
 	 * @return  array
 	 */
-	abstract protected function loadData();
+	abstract protected function loadObjectData();
 
 	/**
 	 * Get the associated object.
