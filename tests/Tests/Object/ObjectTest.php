@@ -192,11 +192,11 @@ class ObjectTest extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * set assigns the correct value.
+	 * assign sets the correct value.
 	 *
 	 * @return  void
 	 */
-	public function testSetAssignsCorrectValue()
+	public function testAssignSetsCorrectValue()
 	{
 		$object = new Object(['id' => 23, 'name' => 'Roberto Segura']);
 
@@ -206,21 +206,21 @@ class ObjectTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertEquals(23, $dataProperty->getValue($object)['id']);
 
-		$object->set('id', 35);
+		$object->assign('id', 35);
 
 		$this->assertEquals(35, $dataProperty->getValue($object)['id']);
 
-		$object->set('foo', 'var');
+		$object->assign('foo', 'var');
 
 		$this->assertEquals('var', $dataProperty->getValue($object)['foo']);
 	}
 
 	/**
-	 * unset unsets a set property.
+	 * unassign unsets a set property.
 	 *
 	 * @return  void
 	 */
-	public function testUnsetRemovesProperty()
+	public function testUnassignRemovesProperty()
 	{
 		$object = new Object(['id' => 23, 'name' => 'Roberto Segura']);
 
@@ -230,11 +230,11 @@ class ObjectTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertEquals(['id', 'name'], array_keys($dataProperty->getValue($object)));
 
-		$object->unset('id');
+		$object->unassign('id');
 
 		$this->assertEquals(['name'], array_keys($dataProperty->getValue($object)));
 
-		$object->unset('name');
+		$object->unassign('name');
 
 		$this->assertEquals([], array_keys($dataProperty->getValue($object)));
 	}

@@ -27,6 +27,26 @@ trait HasObject
 	protected $object;
 
 	/**
+	 * Set value of an object property.
+	 *
+	 * @param   string  $property  Name of the property to set
+	 * @param   mixed   $value     Value to assign
+	 *
+	 * @return  self
+	 */
+	public function assign($property, $value)
+	{
+		if (null === $this->object)
+		{
+			$this->object = new Object;
+		}
+
+		$this->object->assign($property, $value);
+
+		return $this;
+	}
+
+	/**
 	 * Bind data to the object.
 	 *
 	 * @param   array  $data  Data to bind
@@ -53,21 +73,6 @@ trait HasObject
 	public function data()
 	{
 		return $this->object()->data();
-	}
-
-	/**
-	 * Get the associated object.
-	 *
-	 * @return  Entity
-	 */
-	public function object()
-	{
-		if (null === $this->object)
-		{
-			$this->loadObject();
-		}
-
-		return clone $this->object;
 	}
 
 	/**
@@ -115,23 +120,18 @@ trait HasObject
 	abstract protected function loadData();
 
 	/**
-	 * Set value of an object property.
+	 * Get the associated object.
 	 *
-	 * @param   string  $property  Name of the property to set
-	 * @param   mixed   $value     Value to assign
-	 *
-	 * @return  self
+	 * @return  Entity
 	 */
-	public function set($property, $value)
+	public function object()
 	{
 		if (null === $this->object)
 		{
-			$this->object = new Object;
+			$this->loadObject();
 		}
 
-		$this->object->set($property, $value);
-
-		return $this;
+		return clone $this->object;
 	}
 
 	/**
@@ -144,6 +144,25 @@ trait HasObject
 	public function setObject(Object $object)
 	{
 		$this->object = $object;
+
+		return $this;
+	}
+
+	/**
+	 * Unassign an object property.
+	 *
+	 * @param   string  $property  Name of the property to set
+	 *
+	 * @return  self
+	 */
+	public function unassign($property)
+	{
+		if (null === $this->object)
+		{
+			$this->object = new Object;
+		}
+
+		$this->object->unassign($property);
 
 		return $this;
 	}

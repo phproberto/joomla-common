@@ -114,14 +114,14 @@ class Object
 	}
 
 	/**
-	 * Set value of an objet property.
+	 * Assign a value of to object property.
 	 *
 	 * @param   string  $property  Name of the property to set
 	 * @param   mixed   $value     Value to assign
 	 *
 	 * @return  self
 	 */
-	public function set($property, $value)
+	public function assign($property, $value)
 	{
 		$this->data[$property] = $value;
 
@@ -143,13 +143,13 @@ class Object
 	}
 
 	/**
-	 * Unsets an object property in the storage.
+	 * Unassigns an object property.
 	 *
 	 * @param   string  $property  Name of the property to set
 	 *
 	 * @return  self
 	 */
-	public function unset($property)
+	public function unassign($property)
 	{
 		unset($this->data[$property]);
 

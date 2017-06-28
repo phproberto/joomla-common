@@ -134,11 +134,11 @@ class HasObjectTest extends \PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * set sets correct object value.
+	 * assign sets correct object value.
 	 *
 	 * @return  void
 	 */
-	public function testSetSetsCorrectObjectValue()
+	public function testAssignSetsCorrectObjectValue()
 	{
 		$class = new ClassWithObject;
 
@@ -148,8 +148,8 @@ class HasObjectTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertEquals(null, $objectProperty->getValue($class));
 
-		$class->set('id', 999);
-		$class->set('name', 'Roberto Segura');
+		$class->assign('id', 999);
+		$class->assign('name', 'Roberto Segura');
 
 		$object = $objectProperty->getValue($class);
 		$objectReflection = new \ReflectionClass($object);
@@ -180,5 +180,49 @@ class HasObjectTest extends \PHPUnit\Framework\TestCase
 		$class->setObject($object);
 
 		$this->assertEquals($object, $objectProperty->getValue($class));
+	}
+
+	/**
+	 * unassign unsets property.
+	 *
+	 * @return  void
+	 */
+	public function testUnassignUnsetsObjectProperty()
+	{
+		$class = new ClassWithObject;
+
+		$reflection = new \ReflectionClass($class);
+		$objectProperty = $reflection->getProperty('object');
+		$objectProperty->setAccessible(true);
+
+		$this->assertEquals(null, $objectProperty->getValue($class));
+
+		$class->unassign('sample');
+
+		$this->assertEquals(new Object, $objectProperty->getValue($class));
+
+		$object = new Object(['id' => 999, 'name' => 'Roberto Segura']);
+
+		$objectProperty->setValue($class, $object);
+
+		$this->assertEquals($object, $objectProperty->getValue($class));
+
+		$object = $objectProperty->getValue($class);
+		$objectReflection = new \ReflectionClass($object);
+		$dataProperty = $objectReflection->getProperty('data');
+		$dataProperty->setAccessible(true);
+
+		$this->assertTrue(array_key_exists('id', $dataProperty->getValue($object)));
+		$this->assertTrue(array_key_exists('name', $dataProperty->getValue($object)));
+
+		$class->unassign('id');
+
+		$this->assertFalse(array_key_exists('id', $dataProperty->getValue($object)));
+		$this->assertTrue(array_key_exists('name', $dataProperty->getValue($object)));
+
+		$class->unassign('name');
+
+		$this->assertFalse(array_key_exists('id', $dataProperty->getValue($object)));
+		$this->assertFalse(array_key_exists('name', $dataProperty->getValue($object)));
 	}
 }
