@@ -1,0 +1,150 @@
+<?php
+/**
+ * Joomla! common library.
+ *
+ * @copyright  Copyright (C) 2017 Roberto Segura López, Inc. All rights reserved.
+ * @license    GNU/GPL 2, http://www.gnu.org/licenses/gpl-2.0.htm
+ */
+
+namespace Phproberto\Joomla\Object\Traits;
+
+use Phproberto\Joomla\Object\Object;
+
+defined('JPATH_PLATFORM') || die;
+
+/**
+ * Classes that have an associated object.
+ *
+ * @since  __DEPLOY_VERSION__
+ */
+trait HasObject
+{
+	/**
+	 * Associated object.
+	 *
+	 * @var  Entity
+	 */
+	protected $object;
+
+	/**
+	 * Bind data to the object.
+	 *
+	 * @param   array  $data  Data to bind
+	 *
+	 * @return  self
+	 */
+	public function bind(array $data)
+	{
+		if (null === $this->object)
+		{
+			$this->object = new Object;
+		}
+
+		$this->object->bind($data);
+
+		return $this;
+	}
+
+	/**
+	 * Retrieve all the values of the object.
+	 *
+	 * @return  array
+	 */
+	public function data()
+	{
+		return $this->object()->data();
+	}
+
+	/**
+	 * Get the associated object.
+	 *
+	 * @return  Entity
+	 */
+	public function object()
+	{
+		if (null === $this->object)
+		{
+			$this->loadObject();
+		}
+
+		return clone $this->object;
+	}
+
+	/**
+	 * Get property of the object
+	 *
+	 * @param   string  $property  Name of the property to retrieve
+	 * @param   mixed   $default   Default value if property does not exist
+	 *
+	 * @return  mixed
+	 */
+	public function get($property, $default = null)
+	{
+		return $this->object()->get($property, $default);
+	}
+
+	/**
+	 * Check if the object has a property.
+	 *
+	 * @param   string  $property  Name of the property to check for
+	 *
+	 * @return  boolean
+	 */
+	public function has($property)
+	{
+		return $this->object()->has($property);
+	}
+
+	/**
+	 * Load object.
+	 *
+	 * @return  self
+	 */
+	public function loadObject()
+	{
+		$this->object = new Object($this->loadData());
+
+		return $this;
+	}
+
+	/**
+	 * Load object data.
+	 *
+	 * @return  array
+	 */
+	abstract protected function loadData();
+
+	/**
+	 * Set value of an object property.
+	 *
+	 * @param   string  $property  Name of the property to set
+	 * @param   mixed   $value     Value to assign
+	 *
+	 * @return  self
+	 */
+	public function set($property, $value)
+	{
+		if (null === $this->object)
+		{
+			$this->object = new Object;
+		}
+
+		$this->object->set($property, $value);
+
+		return $this;
+	}
+
+	/**
+	 * Set the object.
+	 *
+	 * @param   Object  $object  Value to assign
+	 *
+	 * @return  self
+	 */
+	public function setObject(Object $object)
+	{
+		$this->object = $object;
+
+		return $this;
+	}
+}
