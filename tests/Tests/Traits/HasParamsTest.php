@@ -19,28 +19,28 @@ use Phproberto\Joomla\Tests\Traits\Stubs\ClassWithParams;
 class HasParamsTest extends \TestCase
 {
 	/**
-	 * Test getParam method.
+	 * param returns correct value.
 	 *
 	 * @return  void
 	 */
-	public function testGetParam()
+	public function testParamReturnsCorrectValue()
 	{
 		$class = new ClassWithParams;
-		$this->assertEquals('var', $class->getParam('foo'));
-		$this->assertEquals(null, $class->getParam('custom-param'));
-		$this->assertEquals('default-value', $class->getParam('custom-param', 'default-value'));
-		$this->assertEquals(array('test' => 'me'), $class->getParam('custom-param', array('test' => 'me')));
+		$this->assertEquals('var', $class->param('foo'));
+		$this->assertEquals(null, $class->param('custom-param'));
+		$this->assertEquals('default-value', $class->param('custom-param', 'default-value'));
+		$this->assertEquals(array('test' => 'me'), $class->param('custom-param', array('test' => 'me')));
 	}
 
 	/**
-	 * Test getParams method.
+	 * params return correct value.
 	 *
 	 * @return  void
 	 */
-	public function testGetParams()
+	public function testParams()
 	{
 		$class = new ClassWithParams;
-		$this->assertEquals(ClassWithParams::defaultParams(), $class->getParams());
+		$this->assertEquals(ClassWithParams::defaultParams(), $class->params());
 
 		$reflection = new \ReflectionClass($class);
 		$params = $reflection->getProperty('params');
@@ -50,9 +50,9 @@ class HasParamsTest extends \TestCase
 		$modifiedParams->set('custom-param', 'my-value');
 
 		$params->setValue($class, $modifiedParams);
-		$this->assertEquals($modifiedParams, $class->getParams());
-		$this->assertNotEquals(ClassWithParams::defaultParams(), $class->getParams());
-		$this->assertEquals(ClassWithParams::defaultParams(), $class->getParams(true));
+		$this->assertEquals($modifiedParams, $class->params());
+		$this->assertNotEquals(ClassWithParams::defaultParams(), $class->params());
+		$this->assertEquals(ClassWithParams::defaultParams(), $class->params(true));
 	}
 
 	/**
@@ -63,17 +63,17 @@ class HasParamsTest extends \TestCase
 	public function testSetParam()
 	{
 		$class = new ClassWithParams;
-		$this->assertEquals(ClassWithParams::defaultParams(), $class->getParams());
+		$this->assertEquals(ClassWithParams::defaultParams(), $class->params());
 		$class->setParam('foo', 'var-modified');
-		$this->assertNotEquals(ClassWithParams::defaultParams(), $class->getParams());
-		$this->assertEquals('var-modified', $class->getParam('foo'));
+		$this->assertNotEquals(ClassWithParams::defaultParams(), $class->params());
+		$this->assertEquals('var-modified', $class->param('foo'));
 		$class->setParam('foo', null);
-		$this->assertEquals(null, $class->getParam('foo'));
+		$this->assertEquals(null, $class->param('foo'));
 
 		$class2 = new ClassWithParams;
 		$class2->setParam('custom', 'value');
-		$this->assertEquals('var', $class2->getParam('foo'));
-		$this->assertEquals('value', $class2->getParam('custom'));
+		$this->assertEquals('var', $class2->param('foo'));
+		$this->assertEquals('value', $class2->param('custom'));
 	}
 
 	/**
@@ -84,13 +84,13 @@ class HasParamsTest extends \TestCase
 	public function testSetParams()
 	{
 		$class = new ClassWithParams;
-		$this->assertEquals(ClassWithParams::defaultParams(), $class->getParams());
-		$this->assertEquals('var', $class->getParam('foo'));
+		$this->assertEquals(ClassWithParams::defaultParams(), $class->params());
+		$this->assertEquals('var', $class->param('foo'));
 
 		$customParams = new Registry(array('testSetParams' => 'test'));
 		$class->setParams($customParams);
-		$this->assertEquals($customParams, $class->getParams());
-		$this->assertNotEquals('var', $class->getParam('foo'));
-		$this->assertEquals('test', $class->getParam('testSetParams'));
+		$this->assertEquals($customParams, $class->params());
+		$this->assertNotEquals('var', $class->param('foo'));
+		$this->assertEquals('test', $class->param('testSetParams'));
 	}
 }

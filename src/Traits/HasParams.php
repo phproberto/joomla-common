@@ -34,19 +34,19 @@ trait HasParams
 	 *
 	 * @return  mixed
 	 */
-	public function getParam($name, $default = null)
+	public function param($name, $default = null)
 	{
-		return $this->getParams()->get($name, $default);
+		return $this->params()->get($name, $default);
 	}
 
 	/**
-	 * Get the module parameters.
+	 * Get the parameters.
 	 *
 	 * @param   boolean  $reload  Force reloading data from DB.
 	 *
 	 * @return  Registry
 	 */
-	public function getParams($reload = false)
+	public function params($reload = false)
 	{
 		if ($reload || null === $this->params)
 		{
